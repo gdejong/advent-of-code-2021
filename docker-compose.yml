@@ -6,3 +6,5 @@ services:
       dockerfile: Dockerfile
     volumes:
       - .:/opt/project
+    environment:
+      PHP_IDE_CONFIG: "serverName=aoc.local"
