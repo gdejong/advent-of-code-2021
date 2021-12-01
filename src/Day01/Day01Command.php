@@ -18,9 +18,11 @@ class Day01Command extends Command
 
         $sonar_sweep = new SonarSweep();
 
-        $result = $sonar_sweep->countIncreasingDepths($day_input);
+        $result_part_1 = $sonar_sweep->countIncreasingDepths($day_input);
+        $output->writeln("Part 1: " . $result_part_1);
 
-        $output->writeln("Part 1: " . $result);
+        $result_part_2 = $sonar_sweep->countIncreasingDepthsUsingSlidingWindow($day_input);
+        $output->writeln("Part 2: " . $result_part_2);
 
         return 0;
     }
