@@ -28,6 +28,10 @@ class Day02Command extends Command
         $result_part_1 = $submarine->calculatePart1($route);
         $output->writeln("Part 1: " . $result_part_1);
 
+        /** @psalm-suppress InvalidScalarArgument */
+        $result_part_2 = $submarine->calculatePart2($route);
+        $output->writeln("Part 2: " . $result_part_2);
+
         return 0;
     }
 }

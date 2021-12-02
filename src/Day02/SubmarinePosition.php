@@ -36,4 +36,36 @@ class SubmarinePosition
 
         return $horizontal_position * $depth;
     }
+
+    /**
+     * @param array<array<string, int>> $route
+     */
+    public function calculatePart2(array $route): int
+    {
+        $horizontal_position = 0;
+        $depth = 0;
+        $aim = 0;
+
+        foreach ($route as $item) {
+            [$route_cmd, $steps] = $item;
+
+            switch ($route_cmd) {
+                case "forward":
+                    $horizontal_position += $steps;
+                    $depth += ($aim * $steps);
+                    break;
+                case "down":
+                    $aim += $steps;
+                    break;
+                case "up":
+                    $aim -= $steps;
+                    break;
+                default:
+                    throw new LogicException("Invalid movement: " . $route_cmd);
+            }
+        }
+
+
+        return $horizontal_position * $depth;
+    }
 }
