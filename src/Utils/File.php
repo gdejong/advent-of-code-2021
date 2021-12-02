@@ -25,6 +25,9 @@ class File
         return $output;
     }
 
+    /**
+     * @return array<array-key, string>
+     */
     public static function convertFileToStringArray(string $filename, string $delimiter = PHP_EOL): array
     {
         $input = self::getFileContents($filename);
