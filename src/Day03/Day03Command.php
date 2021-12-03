@@ -14,11 +14,14 @@ class Day03Command extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        /** @var array<array-key, numeric-string> $day_input */
         $day_input = File::convertFileToStringArray(__DIR__ . "/input.txt");
 
         $power = new PowerConsumption();
 
         $output->writeln("Part 1: " . $power->part1($day_input));
+
+        $output->writeln("Part 2: " . $power->part2($day_input));
 
         return 0;
     }

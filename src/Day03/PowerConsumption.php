@@ -7,8 +7,11 @@ use LogicException;
 
 class PowerConsumption
 {
+    private const OXYGEN_RATING = 0;
+    private const CO2_RATING = 1;
+
     /**
-     * @param array<array-key, string> $input
+     * @param array<array-key, numeric-string> $input
      */
     public function part1(array $input): int
     {
@@ -48,5 +51,86 @@ class PowerConsumption
         $epsilon_rate = (int)bindec($epsilon_rate);
 
         return $gamma_rate * $epsilon_rate;
+    }
+
+    /**
+     * @param array<array-key, numeric-string> $input
+     */
+    public function part2(array $input): int
+    {
+        $oxygen = $this->calculateRating($input, self::OXYGEN_RATING);
+        $co2 = $this->calculateRating($input, self::CO2_RATING);
+
+        return $oxygen * $co2;
+    }
+
+    /**
+     * @param array<array-key, numeric-string> $input
+     */
+    private function calculateRating(array $input, int $type): int
+    {
+        $bit_position = 0;
+        while (count($input) > 1) {
+            $keep = $this->findBitToKeep($input, $bit_position, $type);
+
+            $input = $this->filterValue($input, $bit_position, $keep);
+
+            $bit_position++;
+        }
+
+        $value = reset($input);
+
+        return (int)bindec($value);
+    }
+
+    /**
+     * @param array<array-key, numeric-string> $input
+     *
+     * @return array<array-key, numeric-string>
+     */
+    private function filterValue(array $input, int $bit_position, int $keep): array
+    {
+        foreach ($input as $i => $binary_number) {
+            $value = (int)$binary_number[$bit_position];
+            if ($value !== $keep) {
+                unset($input[$i]);
+            }
+        }
+
+        return $input;
+    }
+
+    /**
+     * @param array<array-key, numeric-string> $input
+     *
+     * @return int 0 or 1
+     */
+    private function findBitToKeep(array $input, int $bit_position, int $type): int
+    {
+        $zeros = 0;
+        $ones = 0;
+        foreach ($input as $binary_number) {
+            $value = (int)$binary_number[$bit_position];
+            if ($value === 0) {
+                $zeros++;
+            } else {
+                $ones++;
+            }
+        }
+
+        if ($type === self::OXYGEN_RATING) {
+            if ($zeros === $ones || $ones > $zeros) {
+                return 1;
+            }
+
+            return 0;
+        }
+
+        // else
+        if ($zeros === $ones || $ones > $zeros) {
+            return 0;
+        }
+
+        return 1;
     }
 }
