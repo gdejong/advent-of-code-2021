@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 
 class BingoTest extends TestCase
 {
-    public function testPart1()
+    public function testBingo()
     {
         $bingo = new Bingo();
 
@@ -31,5 +31,6 @@ class BingoTest extends TestCase
  2  0 12  3  7");
 
         self::assertSame(4512, $bingo->part1($input));
+        self::assertSame(1924, $bingo->part2($input));
     }
 }

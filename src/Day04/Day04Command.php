@@ -21,6 +21,8 @@ class Day04Command extends Command
 
         $output->writeln("Part 1: " . $bingo->part1($day_input));
 
+        $output->writeln("Part 2: " . $bingo->part2($day_input));
+
         return 0;
     }
 }
