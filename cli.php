@@ -4,6 +4,7 @@ declare(strict_types=1);
 use gdejong\AoC2021\Day01\Day01Command;
 use gdejong\AoC2021\Day02\Day02Command;
 use gdejong\AoC2021\Day03\Day03Command;
+use gdejong\AoC2021\Day04\Day04Command;
 use Symfony\Component\Console\Application;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . "vendor/autoload.php";
@@ -14,6 +15,7 @@ $application->addCommands([
     new Day01Command(),
     new Day02Command(),
     new Day03Command(),
+    new Day04Command(),
 ]);
 
 $application->run();
