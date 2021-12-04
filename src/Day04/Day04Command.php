@@ -14,7 +14,6 @@ class Day04Command extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var array<array-key, string> $day_input */
         $day_input = File::convertFileToStringArray(__DIR__ . "/input.txt");
 
         $bingo = new Bingo();

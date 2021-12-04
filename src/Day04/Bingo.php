@@ -7,9 +7,14 @@ use LogicException;
 
 class Bingo
 {
+    /**
+     * @param array<array-key, string> $input
+     *
+     * @return array{numbers_drawn: array<array-key, int>, boards: array<array-key, BingoBoard>}
+     */
     private function parseInput(array $input): array
     {
-        $numbers_drawn = array_map(static function ($value) {
+        $numbers_drawn = array_map(static function (string $value) {
             return (int)$value;
         }, preg_split('/,/', trim($input[0])));
         unset($input[0]);
@@ -25,22 +30,31 @@ class Bingo
                 continue;
             }
 
+            if ($board === null) {
+                throw new LogicException("board is still null");
+            }
+
             $board->addRow($row);
         }
 
-        return [$numbers_drawn, $boards];
+        return ["numbers_drawn" => $numbers_drawn, "boards" => $boards];
     }
 
+    /**
+     * @param array<array-key, string> $input
+     */
     public function part1(array $input): int
     {
-        [$numbers_drawn, $boards] = $this->parseInput($input);
+        $parsed = $this->parseInput($input);
+        $numbers_drawn = $parsed["numbers_drawn"];
+        $boards = $parsed["boards"];
 
         foreach ($numbers_drawn as $drawn_number) {
             foreach ($boards as $board) {
                 $board->markAsDrawn($drawn_number);
 
                 if ($board->hasBingo()) {
-                    return $board->sumUnmarkedNumbers() * $drawn_number;
+                    return (int)($board->sumUnmarkedNumbers() * $drawn_number);
                 }
             }
         }
@@ -48,9 +62,14 @@ class Bingo
         throw new LogicException("failed to find a bingo");
     }
 
+    /**
+     * @param array<array-key, string> $input
+     */
     public function part2(array $input): int
     {
-        [$numbers_drawn, $boards] = $this->parseInput($input);
+        $parsed = $this->parseInput($input);
+        $numbers_drawn = $parsed["numbers_drawn"];
+        $boards = $parsed["boards"];
 
         $number_of_boards = count($boards);
         $bingos = 0;
@@ -63,7 +82,7 @@ class Bingo
                     unset($boards[$i]); // remove this board since we know it has a bingo already
                     $bingos++;
                     if ($bingos === $number_of_boards) {
-                        return $board->sumUnmarkedNumbers() * $drawn_number;
+                        return (int)($board->sumUnmarkedNumbers() * $drawn_number);
                     }
                 }
             }

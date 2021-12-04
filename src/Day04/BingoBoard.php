@@ -6,7 +6,7 @@ namespace gdejong\AoC2021\Day04;
 class BingoBoard
 {
     /** @var array<array<BingoBoardNumber>> */
-    private array $board;
+    private array $board = [];
 
     public function markAsDrawn(int $number): void
     {
@@ -77,7 +77,7 @@ class BingoBoard
 
     public function addRow(string $row): void
     {
-        $numbers_in_row = array_map(static function ($value) {
+        $numbers_in_row = array_map(static function (string $value) {
             return new BingoBoardNumber((int)$value);
         }, preg_split('/\s+/', trim($row)));
 
