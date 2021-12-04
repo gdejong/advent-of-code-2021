@@ -30,6 +30,6 @@ class BingoTest extends TestCase
 22 11 13  6  5
  2  0 12  3  7");
 
-        self::assertSame(1, $bingo->part1($input));
+        self::assertSame(4512, $bingo->part1($input));
     }
 }

@@ -12,4 +12,15 @@ class BingoBoardNumber
     {
         $this->number = $number;
     }
+
+    public function __toString(): string
+    {
+        $output = (string)$this->number;
+        if ($this->drawn) {
+            $output .= "!";
+        } else {
+            $output .= " ";
+        }
+        return str_pad($output, 4, " ", STR_PAD_LEFT);
+    }
 }
