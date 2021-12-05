@@ -20,6 +20,8 @@ class Day05Command extends Command
 
         $output->writeln("Part 1: " . $grid->part1($day_input)); // 6564
 
+        $output->writeln("Part 2: " . $grid->part2($day_input)); // 19172
+
         return 0;
     }
 }

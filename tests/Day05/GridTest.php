@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class GridTest extends TestCase
 {
-    public function testPart1()
+    public function testPart1And2()
     {
         $input = explode(PHP_EOL, "0,9 -> 5,9
 8,0 -> 0,8
@@ -23,5 +23,6 @@ class GridTest extends TestCase
         $grid = new Grid();
 
         self::assertSame(5, $grid->part1($input));
+        self::assertSame(12, $grid->part2($input));
     }
 }
