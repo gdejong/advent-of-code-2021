@@ -20,7 +20,6 @@ class Grid
             $x2 = (int)$matches[0][2];
             $y2 = (int)$matches[0][3];
 
-            // For now, only consider horizontal and vertical lines: lines where either x1 = x2 or y1 = y2.
             if ($include_diagonal === true || ($x1 === $x2 || $y1 === $y2)) {
                 $points[] = [$x1, $y1, $x2, $y2];
             }
