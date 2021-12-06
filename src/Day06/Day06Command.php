@@ -18,7 +18,9 @@ class Day06Command extends Command
 
         $fish = new LanternFish();
 
-        $output->writeln("Part 1: " . $fish->part1($day_input[0])); // 343441
+        $output->writeln("Part 1: " . $fish->calculatePopulation($day_input[0], 80)); // 343441
+
+        $output->writeln("Part 2: " . $fish->calculatePopulation($day_input[0], 256)); // 1569108373832
 
         return 0;
     }
