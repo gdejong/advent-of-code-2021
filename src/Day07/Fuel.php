@@ -56,7 +56,7 @@ class Fuel
                     continue;
                 }
 
-                $fuel += $this->sumFuelPart2($end - $start);
+                $fuel += $this->gaussianSum($end - $start);
             }
 
             $fuel_by_position[$horizontal_position] = $fuel;
@@ -65,16 +65,9 @@ class Fuel
         return min($fuel_by_position);
     }
 
-    /**
-     * A factorial but instead of multiplying we do addition.
-     */
-    private function sumFuelPart2(int $n): int
+    private function gaussianSum(int $n): int
     {
-        $total = 0;
-        for ($i = $n; $i >= 1; $i--) {
-            $total += $i;
-        }
-
-        return $total;
+        // https://letstalkscience.ca/educational-resources/backgrounders/gauss-summation
+        return (int)(($n * ($n + 1)) / 2);
     }
 }
