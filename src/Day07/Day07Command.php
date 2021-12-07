@@ -18,7 +18,9 @@ class Day07Command extends Command
 
         $fuel = new Fuel();
 
-        $output->writeln("Part 1: " . $fuel->part1($day_input[0])); //
+        $output->writeln("Part 1: " . $fuel->part1($day_input[0])); // 355989
+
+        $output->writeln("Part 2: " . $fuel->part2($day_input[0])); // 102245489
 
         return 0;
     }
