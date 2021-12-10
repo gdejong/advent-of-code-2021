@@ -18,7 +18,9 @@ class Day09Command extends Command
 
         $lava_tubes = new LavaTubes();
 
-        $output->writeln("Part 1: " . $lava_tubes->part1($day_input));
+        $output->writeln("Part 1: " . $lava_tubes->part1($day_input)); // 575
+
+        $output->writeln("Part 2: " . $lava_tubes->part2($day_input)); // 1019700
 
         return 0;
     }

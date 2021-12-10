@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class LavaTubesTest extends TestCase
 {
-    public function testPart1(): void
+    public function testPart1And2(): void
     {
         $input = explode(PHP_EOL, "2199943210
 3987894921
@@ -18,5 +18,7 @@ class LavaTubesTest extends TestCase
         $lava_tubes = new LavaTubes();
 
         self::assertSame(15, $lava_tubes->part1($input));
+
+        self::assertSame(1134, $lava_tubes->part2($input));
     }
 }
