@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class SevenSegmentDisplayTest extends TestCase
 {
-    public function testPart1(): void
+    public function testPart1and2(): void
     {
         $input = explode(PHP_EOL, "be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb | fdgacbe cefdb cefbgd gcbe
 edbfga begcd cbg gc gcadebf fbgde acbgfd abcde gfcbed gfec | fcgedb cgb dgebacf gc
@@ -23,5 +23,15 @@ gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc | fgae cfgab fg bagce
         $display = new SevenSegmentDisplay();
 
         self::assertSame(26, $display->part1($input));
+        self::assertSame(61229, $display->part2($input));
+    }
+
+    public function testPart2SmallerExample(): void
+    {
+        $input = ["acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab | cdfeb fcadb cdfeb cdbaf"];
+
+        $display = new SevenSegmentDisplay();
+
+        self::assertSame(61229, $display->part2($input));
     }
 }
