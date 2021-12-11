@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class SyntaxTest extends TestCase
 {
-    public function testPart1(): void
+    public function testPart1And2(): void
     {
         $input = explode(PHP_EOL, "[({(<(())[]>[[{[]{<()<>>
 [(()[<>])]({[<{<<[]>>(
@@ -23,5 +23,7 @@ class SyntaxTest extends TestCase
         $syntax = new Syntax();
 
         self::assertSame(26397, $syntax->part1($input));
+
+        self::assertSame(288957, $syntax->part2($input));
     }
 }

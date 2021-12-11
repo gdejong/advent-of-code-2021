@@ -20,6 +20,8 @@ class Day10Command extends Command
 
         $output->writeln("Part 1: " . $syntax->part1($day_input));
 
+        $output->writeln("Part 2: " . $syntax->part2($day_input));
+
         return 0;
     }
 }
