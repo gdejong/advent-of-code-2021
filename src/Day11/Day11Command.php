@@ -20,6 +20,8 @@ class Day11Command extends Command
 
         $output->writeln("Part 1: " . $octopus->part1($day_input)); // 1721
 
+        $output->writeln("Part 2: " . $octopus->part2($day_input)); // 298
+
         return 0;
     }
 }
