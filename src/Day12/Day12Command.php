@@ -20,6 +20,8 @@ class Day12Command extends Command
 
         $output->writeln("Part 1: " . $path->part1($day_input)); // 4970
 
+        $output->writeln("Part 2: " . $path->part2($day_input)); // 137948
+
         return 0;
     }
 }

@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class PathTest extends TestCase
 {
-    public function testPart1(): void
+    public function testPart1And2(): void
     {
         $path = new Path();
 
@@ -20,5 +20,7 @@ A-end
 b-end");
 
         self::assertSame(10, $path->part1($input));
+
+        self::assertSame(36, $path->part2($input));
     }
 }
