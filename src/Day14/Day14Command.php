@@ -20,6 +20,8 @@ class Day14Command extends Command
 
         $output->writeln("Part 1: " . $polymer->part1($day_input)); // 2321
 
+        $output->writeln("Part 2: " . $polymer->part2($day_input)); // 2399822193707
+
         return 0;
     }
 }

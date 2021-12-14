@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class PolymerTest extends TestCase
 {
-    public function testPart1(): void
+    public function testPart1And2(): void
     {
         $polymer = new Polymer();
 
@@ -31,5 +31,7 @@ CC -> N
 CN -> C");
 
         self::assertSame(1588, $polymer->part1($input));
+
+        self::assertSame(2188189693529, $polymer->part2($input));
     }
 }

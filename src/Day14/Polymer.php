@@ -39,41 +39,97 @@ class Polymer
      */
     public function part1(array $input): int
     {
-        [$polymer_template, $pair_insertion_rules] = $this->parseInput($input);
-
-        for ($i = 0; $i < 10; $i++) {
-            $polymer_template = $this->apply($polymer_template, $pair_insertion_rules);
-        }
-
-        // Mode:
-        // 0 - an array with the byte-value as key and the frequency of every byte as value.
-        // 1 - same as 0 but only byte-values with a frequency greater than zero are listed.
-        /** @var non-empty-array<int> $chars */
-        $chars = count_chars($polymer_template, 1);
-
-        return max($chars) - min($chars);
+        return $this->solve($input, 10);
     }
 
     /**
-     * @param array<string> $rules
+     * @param array<string> $input
      */
-    private function apply(string $input, array $rules): string
+    public function part2(array $input): int
     {
-        $len = strlen($input);
+        return $this->solve($input, 40);
+    }
+
+    /**
+     * @param array<string> $input
+     */
+    public function solve(array $input, int $iterations): int
+    {
+        [$polymer_template, $pair_insertion_rules] = $this->parseInput($input);
+        $first_character = $polymer_template[0];
+
+        $len = strlen($polymer_template);
+        /** @var array<string, int> $pairs */
         $pairs = [];
 
         // Create the pairs first
         for ($i = 0; $i < $len - 1; $i++) {
-            $pairs[] = $input[$i] . $input[$i + 1];
+            $new_pair = $polymer_template[$i] . $polymer_template[$i + 1];
+            if (isset($pairs[$new_pair])) {
+                $pairs[$new_pair]++;
+            } else {
+                $pairs[$new_pair] = 1;
+            }
         }
 
-        $new_polymer = "";
-        foreach ($pairs as $pair) {
-            $new_polymer .= $pair[0] . $rules[$pair];
+        for ($i = 0; $i < $iterations; $i++) {
+            $pairs = $this->apply($pair_insertion_rules, $pairs);
         }
 
-        $last_character = substr($input, -1);
+        $final_count = [];
+        /**
+         * Start by counting the very first character of the original template.
+         * Further counting is done by taking the second part of a pair.
+         */
+        $final_count[$first_character] = 1;
+        foreach ($pairs as $pair => $count) {
+            $second_part_of_pair = $pair[1];
+            if (!isset($final_count[$second_part_of_pair])) {
+                $final_count[$second_part_of_pair] = $count;
+            } else {
+                $final_count[$second_part_of_pair] += $count;
+            }
+        }
 
-        return $new_polymer . $last_character;
+        return max($final_count) - min($final_count);
+    }
+
+    /**
+     * @param array<string> $pair_insertion_rules
+     * @param array<string, int> $pairs
+     *
+     * @return array<string, int>
+     */
+    private function apply(array $pair_insertion_rules, array $pairs): array
+    {
+        foreach ($pairs as $pair => $count) {
+            // Pair: NN
+            // Left new pair: NC
+            // Right new pair: CN
+            $left_new_pair = $pair[0] . $pair_insertion_rules[$pair];
+            $right_new_pair = $pair_insertion_rules[$pair] . $pair[1];
+
+            if (isset($pairs[$left_new_pair])) {
+                $pairs[$left_new_pair] += $count;
+            } else {
+                $pairs[$left_new_pair] = $count;
+            }
+            if (isset($pairs[$right_new_pair])) {
+                $pairs[$right_new_pair] += $count;
+            } else {
+                $pairs[$right_new_pair] = $count;
+            }
+
+            // Remove the pair that was just split into two new pairs
+            $pairs[$pair] -= $count;
+            if ($pairs[$pair] < 0) {
+                throw new LogicException("value should not become negative");
+            }
+            if ($pairs[$pair] === 0) {
+                unset($pairs[$pair]);
+            }
+        }
+
+        return $pairs;
     }
 }
