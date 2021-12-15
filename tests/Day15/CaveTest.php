@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class CaveTest extends TestCase
 {
-    public function testPart1(): void
+    public function testPart1And2(): void
     {
         $input = explode(PHP_EOL, "1163751742
 1381373672
@@ -23,5 +23,7 @@ class CaveTest extends TestCase
         $cave = new Cave();
 
         self::assertSame(40, $cave->part1($input));
+
+        self::assertSame(315, $cave->part2($input));
     }
 }

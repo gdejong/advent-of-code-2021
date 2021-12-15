@@ -20,6 +20,8 @@ class Day15Command extends Command
 
         $output->writeln("Part 1: " . $cave->part1($day_input)); // 447
 
+        $output->writeln("Part 2: " . $cave->part2($day_input)); // 2825
+
         return 0;
     }
 }
