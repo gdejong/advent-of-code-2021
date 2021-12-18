@@ -16,6 +16,7 @@ use gdejong\AoC2021\Day12\Day12Command;
 use gdejong\AoC2021\Day13\Day13Command;
 use gdejong\AoC2021\Day14\Day14Command;
 use gdejong\AoC2021\Day15\Day15Command;
+use gdejong\AoC2021\Day16\Day16Command;
 use Symfony\Component\Console\Application;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . "vendor/autoload.php";
@@ -38,6 +39,7 @@ $application->addCommands([
     new Day13Command(),
     new Day14Command(),
     new Day15Command(),
+    new Day16Command(),
 ]);
 
 $application->run();
