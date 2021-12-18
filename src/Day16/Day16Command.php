@@ -20,6 +20,8 @@ class Day16Command extends Command
 
         $output->writeln("Part 1: " . $decoder->part1($day_input[0])); // 986
 
+        $output->writeln("Part 2: " . $decoder->part2($day_input[0])); // 18234816469452
+
         return 0;
     }
 }
