@@ -17,7 +17,10 @@ class Day17Command extends Command
         $day_input = File::convertFileToStringArray(__DIR__ . "/input.txt");
 
         $probe = new Probe();
+
         $output->writeln("Part 1: " . $probe->part1($day_input[0])); // 4656
+
+        $output->writeln("Part 2: " . $probe->part2($day_input[0])); // 1908
 
         return 0;
     }

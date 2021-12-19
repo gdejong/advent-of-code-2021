@@ -16,7 +16,10 @@ class Probe
     private const X = 0;
     private const Y = 1;
 
-    public function part1(string $target_area): int
+    /**
+     * @return array{0: int, 1: int, 2: int, 3: int}
+     */
+    private function parseInput(string $target_area): array
     {
         // target area: x=20..30, y=-10..-5
         if (preg_match("/x=(-?\d+)..(-?\d+),\s+y=(-?\d+)..(-?\d+)/", $target_area, $matches) !== self::PREG_MATCH_PATTERN_MATCHES_SUBJECT) {
@@ -28,9 +31,27 @@ class Probe
         $y1 = (int)$matches[3];
         $y2 = (int)$matches[4];
 
-        $max_y = 0;
+        return [$x1, $x2, $y1, $y2];
+    }
 
-        $search_size = max(abs($x1), abs($x2), abs($y1), abs($y2));
+    public function part1(string $target_area): int
+    {
+        return $this->solve($target_area, false);
+    }
+
+    public function part2(string $target_area): int
+    {
+        return $this->solve($target_area, true);
+    }
+
+    private function solve(string $target_area, bool $part2): int
+    {
+        [$x1, $x2, $y1, $y2] = $this->parseInput($target_area);
+
+        $max_y = 0;
+        $hits = [];
+
+        $search_size = max(abs($x1), abs($x2), abs($y1), abs($y2)) + 1;
 
         // No need to try negative X velocities, since the target is to the right of the starting point
         for ($velocity_x = 0; $velocity_x < $search_size; $velocity_x++) {
@@ -38,11 +59,16 @@ class Probe
                 [$hit, $max_y_this_trajectory] = $this->willHitTarget($velocity_x, $velocity_y, $x1, $x2, $y1, $y2);
                 if ($hit) {
                     $max_y = max($max_y, $max_y_this_trajectory);
+                    $hits[] = $hit;
                 }
             }
         }
 
-        return $max_y;
+        if (!$part2) {
+            return $max_y;
+        }
+
+        return count($hits);
     }
 
     /**
@@ -50,7 +76,7 @@ class Probe
      */
     private function willHitTarget(int $velocity_x, int $velocity_y, int $x1, int $x2, int $y1, int $y2): array
     {
-        $pos = [0, 0];
+        $pos = [0, 0]; // x, y
 
         if ($velocity_x === 0 && $velocity_y === 0) {
             return [false, 0];
@@ -87,8 +113,8 @@ class Probe
             if ($pos[self::X] > $x2) {
                 return [false, 0];
             }
-            // ... or in the X axis.
-            if ($pos[self::Y] < $y2) {
+            // ... or in the Y axis.
+            if ($pos[self::Y] < $y1) {
                 return [false, 0];
             }
         }
